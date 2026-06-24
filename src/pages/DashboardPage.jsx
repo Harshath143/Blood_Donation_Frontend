@@ -10,7 +10,7 @@ import toast from 'react-hot-toast';
 import { formatDate } from '../utils/formatters';
 
 export const DashboardPage = () => {
-  const { user, addDonation, markNotificationsAsRead } = useUserStore();
+  const { user, addDonation, markNotificationsAsRead, updateProfile } = useUserStore();
   const requests = useRequestStore(state => state.requests);
   const [activeTab, setActiveTab] = useState('home'); // 'home' | 'history' | 'requests' | 'badges' | 'settings'
 
@@ -31,6 +31,36 @@ export const DashboardPage = () => {
       </PageWrapper>
     );
   }
+
+  // Profile settings edit state
+  const [isEditing, setIsEditing] = useState(false);
+  const [editForm, setEditForm] = useState({
+    fullName: '',
+    email: '',
+    bloodType: '',
+    city: ''
+  });
+
+  const startEditing = () => {
+    setEditForm({
+      fullName: user.fullName,
+      email: user.email,
+      bloodType: user.bloodType,
+      city: user.city
+    });
+    setIsEditing(true);
+  };
+
+  const handleProfileUpdate = (e) => {
+    e.preventDefault();
+    if (!editForm.fullName.trim() || !editForm.email.trim() || !editForm.city.trim()) {
+      toast.error("Please fill all profile fields.");
+      return;
+    }
+    updateProfile(editForm);
+    setIsEditing(false);
+    toast.success("Profile updated successfully!");
+  };
 
   // Calculate Next Eligibility Date
   const getLastDonationDate = () => {
@@ -365,32 +395,104 @@ export const DashboardPage = () => {
                   <p className="text-xs text-brand-grey">Update contact coordinates and availability status</p>
                 </div>
 
-                <div className="max-w-md space-y-4 text-xs font-semibold text-brand-charcoal">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <span className="block mb-1 text-stone-400">Full Name</span>
-                      <p className="bg-stone-50 border p-2.5 rounded text-brand-charcoal font-semibold">{user.fullName}</p>
+                {isEditing ? (
+                  <form onSubmit={handleProfileUpdate} className="max-w-md space-y-4 text-xs font-semibold text-brand-charcoal">
+                    <div className="grid grid-cols-2 gap-4 text-left">
+                      <div>
+                        <label className="block mb-1 text-stone-400 font-semibold" htmlFor="edit-fullName">Full Name</label>
+                        <input 
+                          type="text" 
+                          id="edit-fullName"
+                          className="w-full border border-stone-300 rounded px-2.5 py-2 text-brand-charcoal bg-white focus:ring-2 focus:ring-brand-primary outline-none font-semibold"
+                          value={editForm.fullName}
+                          onChange={(e) => setEditForm({ ...editForm, fullName: e.target.value })}
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="block mb-1 text-stone-400 font-semibold" htmlFor="edit-email">Email Address</label>
+                        <input 
+                          type="email" 
+                          id="edit-email"
+                          className="w-full border border-stone-300 rounded px-2.5 py-2 text-brand-charcoal bg-white focus:ring-2 focus:ring-brand-primary outline-none font-semibold"
+                          value={editForm.email}
+                          onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
+                          required
+                        />
+                      </div>
                     </div>
-                    <div>
-                      <span className="block mb-1 text-stone-400">Email Address</span>
-                      <p className="bg-stone-50 border p-2.5 rounded text-brand-charcoal font-semibold">{user.email}</p>
+                    <div className="text-left">
+                      <label className="block mb-1 text-stone-400 font-semibold" htmlFor="edit-bloodType">Blood Type</label>
+                      <select 
+                        id="edit-bloodType"
+                        className="w-full border border-stone-300 rounded px-2.5 py-2 text-brand-charcoal bg-white focus:ring-2 focus:ring-brand-primary outline-none font-semibold"
+                        value={editForm.bloodType}
+                        onChange={(e) => setEditForm({ ...editForm, bloodType: e.target.value })}
+                      >
+                        {['O-', 'O+', 'A-', 'A+', 'B-', 'B+', 'AB-', 'AB+'].map(t => (
+                          <option key={t} value={t}>{t}</option>
+                        ))}
+                      </select>
                     </div>
-                  </div>
-                  <div>
-                    <span className="block mb-1 text-stone-400">Blood Type</span>
-                    <p className="bg-stone-50 border p-2.5 rounded text-brand-primary font-bold font-mono">{user.bloodType}</p>
-                  </div>
-                  <div>
-                    <span className="block mb-1 text-stone-400">Registered City</span>
-                    <p className="bg-stone-50 border p-2.5 rounded text-brand-charcoal font-semibold">{user.city}</p>
-                  </div>
+                    <div className="text-left">
+                      <label className="block mb-1 text-stone-400 font-semibold" htmlFor="edit-city">Registered City</label>
+                      <input 
+                        type="text" 
+                        id="edit-city"
+                        className="w-full border border-stone-300 rounded px-2.5 py-2 text-brand-charcoal bg-white focus:ring-2 focus:ring-brand-primary outline-none font-semibold"
+                        value={editForm.city}
+                        onChange={(e) => setEditForm({ ...editForm, city: e.target.value })}
+                        required
+                      />
+                    </div>
 
-                  <div className="pt-4 border-t border-stone-100 flex justify-end">
-                    <Button variant="secondary" size="sm" onClick={() => toast.success("Feature on roadmap!")}>
-                      Edit Profile details
-                    </Button>
+                    <div className="pt-4 border-t border-stone-100 flex justify-end gap-2">
+                      <Button 
+                        type="button"
+                        variant="secondary" 
+                        size="sm" 
+                        onClick={() => setIsEditing(false)}
+                      >
+                        Cancel
+                      </Button>
+                      <Button 
+                        type="submit"
+                        variant="primary" 
+                        size="sm"
+                        className="font-bold border-none"
+                      >
+                        Save Changes
+                      </Button>
+                    </div>
+                  </form>
+                ) : (
+                  <div className="max-w-md space-y-4 text-xs font-semibold text-brand-charcoal">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <span className="block mb-1 text-stone-400">Full Name</span>
+                        <p className="bg-stone-50 border p-2.5 rounded text-brand-charcoal font-semibold">{user.fullName}</p>
+                      </div>
+                      <div>
+                        <span className="block mb-1 text-stone-400">Email Address</span>
+                        <p className="bg-stone-50 border p-2.5 rounded text-brand-charcoal font-semibold">{user.email}</p>
+                      </div>
+                    </div>
+                    <div>
+                      <span className="block mb-1 text-stone-400">Blood Type</span>
+                      <p className="bg-stone-50 border p-2.5 rounded text-brand-primary font-bold font-mono">{user.bloodType}</p>
+                    </div>
+                    <div>
+                      <span className="block mb-1 text-stone-400">Registered City</span>
+                      <p className="bg-stone-50 border p-2.5 rounded text-brand-charcoal font-semibold">{user.city}</p>
+                    </div>
+
+                    <div className="pt-4 border-t border-stone-100 flex justify-end">
+                      <Button variant="secondary" size="sm" onClick={startEditing}>
+                        Edit Profile details
+                      </Button>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             )}
 

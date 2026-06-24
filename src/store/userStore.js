@@ -153,5 +153,20 @@ export const useUserStore = create((set, get) => ({
         notifications: user.notifications.map(n => ({ ...n, read: true }))
       }
     });
+  },
+
+  updateProfile: (profileData) => {
+    const { user } = get();
+    if (!user) return false;
+    set({
+      user: {
+        ...user,
+        fullName: profileData.fullName,
+        email: profileData.email,
+        bloodType: profileData.bloodType,
+        city: profileData.city
+      }
+    });
+    return true;
   }
 }));
