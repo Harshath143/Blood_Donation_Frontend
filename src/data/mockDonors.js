@@ -1,0 +1,267 @@
+export const mockDonors = [
+  {
+    id: "d1",
+    fullName: "Arjun Kumar",
+    bloodType: "O-",
+    phone: "+91 98401 23456",
+    email: "arjun.kumar@email.com",
+    city: "Chennai",
+    state: "Tamil Nadu",
+    pinCode: "600001",
+    lat: 13.0850,
+    lng: 80.2720,
+    lastDonatedDate: "2026-04-10", // 75 days ago - Eligible
+    availability: "Available Now",
+    notifyEmergency: true,
+    initials: "AK",
+    color: "red"
+  },
+  {
+    id: "d2",
+    fullName: "Priya Sundaram",
+    bloodType: "A+",
+    phone: "+91 98402 34567",
+    email: "priya.s@email.com",
+    city: "Chennai",
+    state: "Tamil Nadu",
+    pinCode: "600018",
+    lat: 13.0405,
+    lng: 80.2450,
+    lastDonatedDate: "2026-05-20", // 35 days ago - Deferred (< 56 days)
+    availability: "Weekends Only",
+    notifyEmergency: false,
+    initials: "PS",
+    color: "blue"
+  },
+  {
+    id: "d3",
+    fullName: "Vikram Rathore",
+    bloodType: "B+",
+    phone: "+91 98403 45678",
+    email: "vikram.r@email.com",
+    city: "Chennai",
+    state: "Tamil Nadu",
+    pinCode: "600028",
+    lat: 13.0210,
+    lng: 80.2205,
+    lastDonatedDate: "2026-02-15", // 129 days ago - Eligible
+    availability: "Available Now",
+    notifyEmergency: true,
+    initials: "VR",
+    color: "emerald"
+  },
+  {
+    id: "d4",
+    fullName: "Sneha Reddy",
+    bloodType: "O+",
+    phone: "+91 98404 56789",
+    email: "sneha.r@email.com",
+    city: "Chennai",
+    state: "Tamil Nadu",
+    pinCode: "600040",
+    lat: 13.0833,
+    lng: 80.2010,
+    lastDonatedDate: "2026-05-10", // 45 days ago - Deferred
+    availability: "Emergency Only",
+    notifyEmergency: true,
+    initials: "SR",
+    color: "purple"
+  },
+  {
+    id: "d5",
+    fullName: "Rohan Das",
+    bloodType: "AB-",
+    phone: "+91 98405 67890",
+    email: "rohan.d@email.com",
+    city: "Chennai",
+    state: "Tamil Nadu",
+    pinCode: "600096",
+    lat: 12.9710,
+    lng: 80.2450,
+    lastDonatedDate: "2025-12-10", // > 6 months ago - Eligible
+    availability: "Available Now",
+    notifyEmergency: true,
+    initials: "RD",
+    color: "amber"
+  },
+  {
+    id: "d6",
+    fullName: "Ananya Iyer",
+    bloodType: "A-",
+    phone: "+91 98406 78901",
+    email: "ananya.i@email.com",
+    city: "Chennai",
+    state: "Tamil Nadu",
+    pinCode: "600020",
+    lat: 13.0060,
+    lng: 80.2580,
+    lastDonatedDate: "Never",
+    availability: "Weekends Only",
+    notifyEmergency: true,
+    initials: "AI",
+    color: "teal"
+  },
+  {
+    id: "d7",
+    fullName: "Mohammed Ali",
+    bloodType: "O-",
+    phone: "+91 98407 89012",
+    email: "ali.m@email.com",
+    city: "Chennai",
+    state: "Tamil Nadu",
+    pinCode: "600034",
+    lat: 13.0590,
+    lng: 80.2310,
+    lastDonatedDate: "2026-03-01", // 115 days ago - Eligible
+    availability: "Emergency Only",
+    notifyEmergency: true,
+    initials: "MA",
+    color: "pink"
+  },
+  {
+    id: "d8",
+    fullName: "Divya Prakash",
+    bloodType: "B-",
+    phone: "+91 98408 90123",
+    email: "divya.p@email.com",
+    city: "Chennai",
+    state: "Tamil Nadu",
+    pinCode: "600017",
+    lat: 13.0420,
+    lng: 80.2350,
+    lastDonatedDate: "2026-04-18", // 67 days ago - Eligible
+    availability: "Available Now",
+    notifyEmergency: false,
+    initials: "DP",
+    color: "indigo"
+  },
+  {
+    id: "d9",
+    fullName: "Karthik Raja",
+    bloodType: "AB+",
+    phone: "+91 98409 01234",
+    email: "karthik.r@email.com",
+    city: "Chennai",
+    state: "Tamil Nadu",
+    pinCode: "600100",
+    lat: 12.9230,
+    lng: 80.2300,
+    lastDonatedDate: "2026-01-20", // > 150 days ago - Eligible
+    availability: "Available Now",
+    notifyEmergency: true,
+    initials: "KR",
+    color: "orange"
+  },
+  {
+    id: "d10",
+    fullName: "Meera Nair",
+    bloodType: "O-",
+    phone: "+91 98410 12345",
+    email: "meera.n@email.com",
+    city: "Chennai",
+    state: "Tamil Nadu",
+    pinCode: "600041",
+    lat: 12.9860,
+    lng: 80.2640,
+    lastDonatedDate: "2026-05-25", // 30 days ago - Deferred
+    availability: "Weekends Only",
+    notifyEmergency: false,
+    initials: "MN",
+    color: "cyan"
+  }
+];
+
+export const mockBloodBanks = [
+  {
+    id: "b1",
+    name: "Apollo Hospitals Blood Bank",
+    address: "21, Greams Lane, Off Greams Road, Chennai - 600006",
+    city: "Chennai",
+    lat: 13.0601,
+    lng: 80.2520,
+    phone: "+91 44 2829 0200",
+    whatsapp: "+91 98401 99999",
+    hours: "Open 24/7",
+    isOpenNow: true,
+    distance: 1.8,
+    stocks: {
+      "O-": { available: true, units: 14 },
+      "O+": { available: true, units: 45 },
+      "A+": { available: true, units: 32 },
+      "A-": { available: true, units: 8 },
+      "B+": { available: true, units: 28 },
+      "B-": { available: false, units: 0 },
+      "AB+": { available: true, units: 12 },
+      "AB-": { available: true, units: 3 }
+    }
+  },
+  {
+    id: "b2",
+    name: "Fortis Malar Blood Center",
+    address: "52, 1st Main Rd, Gandhi Nagar, Adyar, Chennai - 600020",
+    city: "Chennai",
+    lat: 13.0075,
+    lng: 80.2547,
+    phone: "+91 44 4248 1200",
+    whatsapp: "+91 98402 88888",
+    hours: "08:00 AM - 10:00 PM",
+    isOpenNow: true,
+    distance: 4.2,
+    stocks: {
+      "O-": { available: true, units: 5 },
+      "O+": { available: true, units: 20 },
+      "A+": { available: true, units: 18 },
+      "A-": { available: false, units: 0 },
+      "B+": { available: true, units: 15 },
+      "B-": { available: true, units: 4 },
+      "AB+": { available: true, units: 8 },
+      "AB-": { available: false, units: 0 }
+    }
+  },
+  {
+    id: "b3",
+    name: "Government General Hospital Blood Bank",
+    address: "EVR Periyar Salai, Park Town, Chennai - 600003",
+    city: "Chennai",
+    lat: 13.0827,
+    lng: 80.2748,
+    phone: "+91 44 2530 5000",
+    whatsapp: "+91 98403 77777",
+    hours: "Open 24/7",
+    isOpenNow: true,
+    distance: 0.5,
+    stocks: {
+      "O-": { available: true, units: 22 },
+      "O+": { available: true, units: 80 },
+      "A+": { available: true, units: 65 },
+      "A-": { available: true, units: 12 },
+      "B+": { available: true, units: 50 },
+      "B-": { available: true, units: 15 },
+      "AB+": { available: true, units: 35 },
+      "AB-": { available: true, units: 9 }
+    }
+  },
+  {
+    id: "b4",
+    name: "MIOT International Blood Bank",
+    address: "4/112, Mount Poonamallee Rd, Manapakkam, Chennai - 600089",
+    city: "Chennai",
+    lat: 13.0223,
+    lng: 80.1798,
+    phone: "+91 44 4200 2288",
+    whatsapp: "+91 98404 66666",
+    hours: "Open 24/7",
+    isOpenNow: true,
+    distance: 10.4,
+    stocks: {
+      "O-": { available: false, units: 0 },
+      "O+": { available: true, units: 18 },
+      "A+": { available: true, units: 15 },
+      "A-": { available: false, units: 0 },
+      "B+": { available: true, units: 22 },
+      "B-": { available: true, units: 2 },
+      "AB+": { available: true, units: 9 },
+      "AB-": { available: false, units: 0 }
+    }
+  }
+];
